@@ -19,22 +19,26 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            ForEach(0..<12, id: \.self) { index in
-                Rectangle()
-                    .fill(.orange)
-                    .frame(width: 30, height: 30)
-                    .rotationEffect(.degrees(rotationDegrees[index]))
-                    .offset(
-                        x: (maxRadius - calculateOffsets(for: distanceIndexes[index])) * cos(CGFloat(-rotationIndexes[index]) * 30 * .pi / 180),
-                        y: (maxRadius - calculateOffsets(for: distanceIndexes[index])) * sin(CGFloat(rotationIndexes[index]) * 30 * .pi / 180)
-                    )
-                    .onTapGesture {
-                        loopingAnimation()
-                    }
-            }
+            Color(.background)
+                .ignoresSafeArea()
             
+            ZStack {
+                ForEach(0..<12, id: \.self) { index in
+                    Rectangle()
+                        .fill(.rectangle)
+                        .frame(width: 30, height: 30)
+                        .rotationEffect(.degrees(rotationDegrees[index]))
+                        .offset(
+                            x: (maxRadius - calculateOffsets(for: distanceIndexes[index])) * cos(CGFloat(-rotationIndexes[index]) * 30 * .pi / 180),
+                            y: (maxRadius - calculateOffsets(for: distanceIndexes[index])) * sin(CGFloat(rotationIndexes[index]) * 30 * .pi / 180)
+                        )
+                        .onTapGesture {
+                            loopingAnimation()
+                        }
+                }
+            }
+            .rotationEffect(.degrees(270))
         }
-        .rotationEffect(.degrees(270))
     }
     
     private func calculateOffsets(for index: Int) -> CGFloat {
